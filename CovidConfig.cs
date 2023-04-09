@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -30,23 +31,23 @@ namespace tpmodul8_1302210095
     public class UICovidConfig
     {
         public CovidConfig config;
-        public const string filepath = @"covid_config.json";
+        public const string filepath = "C:\\Users\\rahma\\STUDY\\Telkom University\\semester 4\\Konstruksi Perangkat Lunak\\TP 8\\tpmodul8_1302210095\\" +
+                "covid_config.json";
         public UICovidConfig()
         {
             try
             {
                 ReadConfigFile();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.ToString());
                 SetDefault();
                 WriteNewConfigFile();
             }
         }
         private CovidConfig ReadConfigFile()
         {
-            String configJsonData = File.ReadAllText(filepath);
+            string configJsonData = File.ReadAllText(filepath);
             config = JsonSerializer.Deserialize<CovidConfig>(configJsonData);
             return config;
         }
@@ -64,7 +65,7 @@ namespace tpmodul8_1302210095
             {
                 WriteIndented = true
             };
-            String jsonString = JsonSerializer.Serialize(config,options);
+            string jsonString = JsonSerializer.Serialize(config,options);
             File.WriteAllText(filepath,jsonString);
         }
     }

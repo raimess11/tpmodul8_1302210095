@@ -1,4 +1,5 @@
-﻿using tpmodul8_1302210095;
+﻿using System;
+using tpmodul8_1302210095;
 
 public class Program
 {
@@ -19,17 +20,20 @@ public class Program
         string input2 = Console.ReadLine();
         fever_since = Convert.ToInt32(input2);
 
+        config.UbahSatuan();
+
         bool isCelcius = config.satuan_suhu == "celcius";
         bool isFahrenheit = config.satuan_suhu == "fahrenheit";
 
-        config.UbahSatuan();
 
         bool normalTemp = true;
         if (isCelcius) { normalTemp = suhu >= 36.5 && suhu <= 37.5; }
         if (isFahrenheit) { normalTemp = suhu >= 97.7 && suhu <= 99.5; }
 
-        bool isCovid = !normalTemp && fever_since > 14;
+        bool isCovid = !normalTemp && fever_since > config.batas_hari_demam;
 
+        Console.WriteLine(config.batas_hari_demam);
+        Console.WriteLine(config.satuan_suhu);
 
         if (isCovid)
         {
